@@ -33,27 +33,27 @@ suite("Functional Tests", function () {
       });
   });
   test("GET /api/convert?input=3/7.2/4kg", (done) => {
-    after(chai
+    chai
       .request(server)
       .get("/api/convert?input=3/7.2/4kg")
       .end((req, res) => {
         assert.equal(res.status, 200);
         assert.equal(res.text, "invalid number");
         done();
-      }));
+      });
   });
   test("GET /api/convert?input=3/7.2/4kilomegagram", (done) => {
-    after(chai
+    chai
       .request(server)
       .get("/api/convert?input=3/7.2/4kilomegagram")
       .end((req, res) => {
         assert.equal(res.status, 200);
         assert.equal(res.text, "invalid number and unit");
         done();
-      }));
+      });
   });
   test("GET /api/convert?input=kg", (done) => {
-    after(chai
+    chai
       .request(server)
       .get("/api/convert?input=kg")
       .end((req, res) => {
@@ -66,6 +66,11 @@ suite("Functional Tests", function () {
           string: "1 kilograms converts to 2.20462 pounds",
         });
         done();
-      }));
+      });
   });
-});
+
+  
+}, after(function() {
+  chai.request(server)
+    .get('/')
+}));
